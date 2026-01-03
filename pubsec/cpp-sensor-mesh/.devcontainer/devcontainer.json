@@ -1,0 +1,27 @@
+{
+    "name": "C++ Counter-UAS Sensor Mesh",
+    "image": "mcr.microsoft.com/devcontainers/cpp:1-debian-12",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "twxs.cmake"
+            ]
+        }
+    },
+    "postCreateCommand": ".devcontainer/setup.sh",
+    "remoteEnv": {
+        "DITTO_APP_ID": "${localEnv:DITTO_APP_ID}",
+        "DITTO_PLAYGROUND_TOKEN": "${localEnv:DITTO_PLAYGROUND_TOKEN}",
+        "DITTO_AUTH_URL": "${localEnv:DITTO_AUTH_URL}",
+        "DITTO_WEBSOCKET_URL": "${localEnv:DITTO_WEBSOCKET_URL}"
+    }
+}

@@ -1,0 +1,16 @@
+# Build artifacts
+build/
+
+# Downloaded Ditto SDK (Linux only, downloaded at build time)
+sdk/Ditto.h
+sdk/libditto.a
+sdk/ditto/
+sdk/DEPENDENCY_LICENSES.zip
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Generated
+src/env.h
