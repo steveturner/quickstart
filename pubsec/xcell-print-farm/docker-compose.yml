@@ -1,5 +1,7 @@
 services:
   xcell-dashboard:
+    env_file:
+      - .env.local
     build:
       context: .
       dockerfile: Dockerfile
