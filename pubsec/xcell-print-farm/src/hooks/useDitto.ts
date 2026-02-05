@@ -1,11 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { Ditto, init, IdentityOnlinePlayground } from '@dittolive/ditto';
+import { Ditto, init, IdentityOnlinePlayground, StoreObserver, SyncSubscription } from '@dittolive/ditto';
+
+export type TestDocument = {
+  _id: string;
+  text: string;
+  createdAt: string;
+  deleted: boolean;
+};
 
 export function useDitto() {
   const dittoRef = useRef<Ditto | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [documents, setDocuments] = useState<TestDocument[]>([]);
   const initStarted = useRef(false);
+  const subscriptionRef = useRef<SyncSubscription | null>(null);
+  const observerRef = useRef<StoreObserver | null>(null);
 
   useEffect(() => {
     if (initStarted.current) return;
@@ -41,6 +51,22 @@ export function useDitto() {
         );
 
         dittoRef.current.startSync();
+
+        // Register subscription (determines what syncs to this peer)
+        subscriptionRef.current = dittoRef.current.sync.registerSubscription(
+          'SELECT * FROM test_documents'
+        );
+
+        // Register observer (runs against local database)
+        observerRef.current = dittoRef.current.store.registerObserver<TestDocument>(
+          'SELECT * FROM test_documents WHERE deleted=false ORDER BY createdAt DESC',
+          (results) => {
+            const docs = results.items.map((item) => item.value);
+            setDocuments(docs);
+            console.log('Documents updated:', docs.length);
+          }
+        );
+
         setIsInitialized(true);
         console.log('Ditto initialized successfully');
       } catch (e) {
@@ -52,9 +78,26 @@ export function useDitto() {
     initializeDitto();
 
     return () => {
+      subscriptionRef.current?.cancel();
+      observerRef.current?.cancel();
       dittoRef.current?.close();
     };
   }, []);
 
-  return { ditto: dittoRef.current, isInitialized, error };
+  const createDocument = async (text: string) => {
+    if (!dittoRef.current) return;
+
+    await dittoRef.current.store.execute(
+      'INSERT INTO test_documents DOCUMENTS (:doc)',
+      {
+        doc: {
+          text,
+          createdAt: new Date().toISOString(),
+          deleted: false,
+        },
+      }
+    );
+  };
+
+  return { ditto: dittoRef.current, isInitialized, error, documents, createDocument };
 }
