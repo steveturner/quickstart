@@ -86,18 +86,12 @@ export function usePrinters(options?: UsePrintersOptions) {
           console.log('Printers updated:', docs.length);
         };
 
-        if (params) {
-          observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-            observerQuery,
-            params,
-            observerHandler,
-          );
-        } else {
-          observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-            observerQuery,
-            observerHandler,
-          );
-        }
+        // registerObserver signature: (query, handler, queryArguments?)
+        observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+          observerQuery,
+          observerHandler,
+          params,
+        );
 
         setIsInitialized(true);
         console.log('Ditto initialized for printers');
@@ -153,18 +147,12 @@ export function usePrinters(options?: UsePrintersOptions) {
       setPrinters(results.items.map((item) => item.value));
     };
 
-    if (params) {
-      observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-        observerQuery,
-        params,
-        observerHandler,
-      );
-    } else {
-      observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-        observerQuery,
-        observerHandler,
-      );
-    }
+    // registerObserver signature: (query, handler, queryArguments?)
+    observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+      observerQuery,
+      observerHandler,
+      params,
+    );
   }, [options?.siteCode]);
 
   return { ditto: dittoRef.current, isInitialized, error, printers };
