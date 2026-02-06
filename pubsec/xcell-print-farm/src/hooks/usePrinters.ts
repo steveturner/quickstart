@@ -79,15 +79,25 @@ export function usePrinters(options?: UsePrintersOptions) {
         );
 
         // Register observer (runs against local database)
-        observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-          observerQuery,
-          (results) => {
-            const docs = results.items.map((item) => item.value);
-            setPrinters(docs);
-            console.log('Printers updated:', docs.length);
-          },
-          params,
-        );
+        // Note: registerObserver signature is (query, queryArguments?, handler)
+        const observerHandler = (results: { items: { value: Printer }[] }) => {
+          const docs = results.items.map((item) => item.value);
+          setPrinters(docs);
+          console.log('Printers updated:', docs.length);
+        };
+
+        if (params) {
+          observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+            observerQuery,
+            params,
+            observerHandler,
+          );
+        } else {
+          observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+            observerQuery,
+            observerHandler,
+          );
+        }
 
         setIsInitialized(true);
         console.log('Ditto initialized for printers');
@@ -138,13 +148,23 @@ export function usePrinters(options?: UsePrintersOptions) {
       subscriptionQuery,
       params,
     );
-    observerRef.current = dittoRef.current.store.registerObserver<Printer>(
-      observerQuery,
-      (results) => {
-        setPrinters(results.items.map((item) => item.value));
-      },
-      params,
-    );
+
+    const observerHandler = (results: { items: { value: Printer }[] }) => {
+      setPrinters(results.items.map((item) => item.value));
+    };
+
+    if (params) {
+      observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+        observerQuery,
+        params,
+        observerHandler,
+      );
+    } else {
+      observerRef.current = dittoRef.current.store.registerObserver<Printer>(
+        observerQuery,
+        observerHandler,
+      );
+    }
   }, [options?.siteCode]);
 
   return { ditto: dittoRef.current, isInitialized, error, printers };
