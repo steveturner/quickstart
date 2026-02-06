@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Ditto } from '@dittolive/ditto';
+import type { Ditto, Observer } from '@dittolive/ditto';
 import type { PresenceState, PeerInfo } from '../types/mesh';
 
 export function usePresence(ditto: Ditto | null): PresenceState {
@@ -9,7 +9,7 @@ export function usePresence(ditto: Ditto | null): PresenceState {
     peers: [],
     connectionTypes: [],
   });
-  const observerRef = useRef<{ cancel: () => void } | null>(null);
+  const observerRef = useRef<Observer | null>(null);
 
   useEffect(() => {
     if (!ditto) return;
@@ -31,7 +31,7 @@ export function usePresence(ditto: Ditto | null): PresenceState {
     });
 
     return () => {
-      observerRef.current?.cancel();
+      observerRef.current?.stop();
     };
   }, [ditto]);
 
