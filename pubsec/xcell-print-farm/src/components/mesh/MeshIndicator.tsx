@@ -10,11 +10,15 @@ export function MeshIndicator({ presence }: MeshIndicatorProps) {
   // Color based on connectivity
   const statusColor = isConnected ? 'bg-green-500' : 'bg-yellow-500';
   const statusText = isConnected
-    ? `${peerCount} peer${peerCount !== 1 ? 's' : ''}`
+    ? peerCount > 0
+      ? `${peerCount} peer${peerCount !== 1 ? 's' : ''}`
+      : 'Syncing'
     : 'Connecting...';
 
-  // Show connection type if WebSocket (indicates cloud relay)
-  const viaCloud = connectionTypes.includes('WebSocket');
+  // Web browsers sync via WebSocket to Big Peer (no P2P peers in presence graph)
+  // Show "(via cloud)" when connected with no P2P peers, or when WebSocket detected
+  const viaCloud =
+    connectionTypes.includes('WebSocket') || (isConnected && peerCount === 0);
 
   return (
     <div className="flex items-center gap-2 text-sm">
