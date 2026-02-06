@@ -7,7 +7,7 @@ A Ditto-powered 3D print farm monitoring system built for DDIL environments. Six
 ## Phases
 
 - [x] **Phase 1: Local Foundation** - Offline-first React app with Ditto SDK integration
-- [ ] **Phase 2: Printer Simulation** - C++ simulator generating realistic printer telemetry
+- [x] **Phase 2: Printer Simulation** - C++ simulator generating realistic printer telemetry
 - [ ] **Phase 3: Local Dashboard** - Single-device web UI showing printer status and metrics
 - [ ] **Phase 4: Multi-Device Mesh** - P2P sync between xCells via BLE/LAN at FOB
 - [ ] **Phase 5: Cloud Sync** - Theater-wide visibility via Ditto cloud bridge
@@ -42,10 +42,12 @@ Plans:
   3. Simulator models print jobs with progress over time and material consumption
   4. Simulator injects occasional errors and failures
   5. Multiple simulator instances run independently with unique printer IDs
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD during planning
+- [x] 02-01-PLAN.md - C++ simulator core (state machine and types)
+- [x] 02-02-PLAN.md - Ditto SDK integration and main entry point
+- [x] 02-03-PLAN.md - Docker containerization and multi-instance deployment
 
 ### Phase 3: Local Dashboard
 **Goal**: Operator sees real-time printer status on single-device web dashboard
@@ -56,11 +58,14 @@ Plans:
   2. Dashboard shows print job progress with time remaining and Starcraft-style production queue
   3. Dashboard displays temperature readings and air quality data in real time
   4. Dashboard shows material levels with consumption rates and low material alerts
-  5. Dashboard tracks finished goods lifecycle (printing → QA → staged → assigned)
-**Plans**: TBD
+  5. Dashboard tracks finished goods lifecycle (printing -> QA -> staged -> assigned)
+**Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: TBD during planning
+- [ ] 03-01-PLAN.md - Data layer and TypeScript types for printer schema
+- [ ] 03-02-PLAN.md - 3D globe visualization with location markers
+- [ ] 03-03-PLAN.md - Printer table with TanStack Table
+- [ ] 03-04-PLAN.md - Detail panel, job queue, and Dashboard orchestration
 
 ### Phase 4: Multi-Device Mesh
 **Goal**: Multiple xCells at same FOB sync printer data via P2P mesh
@@ -109,8 +114,8 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Local Foundation | 4/4 | Complete | 2026-02-05 |
-| 2. Printer Simulation | 0/TBD | Not started | - |
-| 3. Local Dashboard | 0/TBD | Not started | - |
+| 2. Printer Simulation | 3/3 | Complete | 2026-02-05 |
+| 3. Local Dashboard | 0/4 | Planned | - |
 | 4. Multi-Device Mesh | 0/TBD | Not started | - |
 | 5. Cloud Sync | 0/TBD | Not started | - |
 | 6. Fleet Dashboard | 0/TBD | Not started | - |
