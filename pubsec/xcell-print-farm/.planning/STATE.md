@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** Commanders see real-time manufacturing capacity across distributed xCell units even when connectivity is degraded
-**Current focus:** Phase 4 - Multi-Device Mesh (Plan 1 of ? complete)
+**Current focus:** Phase 4 - Multi-Device Mesh (Plan 3 of ? complete)
 
 ## Current Position
 
 Phase: 4 of 6 (Multi-Device Mesh)
-Plan: 1 of ? complete
+Plan: 3 of ? complete
 Status: In progress
-Last activity: 2026-02-06 - Completed 04-01-PLAN.md (Presence Hook)
+Last activity: 2026-02-06 - Completed 04-03-PLAN.md (Mesh UI Components)
 
-Progress: [███████░░░] 12 plans complete
+Progress: [████████░░] 14 plans complete
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 14
 - Average duration: 3 min
-- Total execution time: 0.6 hours
+- Total execution time: 0.67 hours
 
 **By Phase:**
 
@@ -30,13 +30,13 @@ Progress: [███████░░░] 12 plans complete
 | 01-local-foundation | 4/4 | 8 min | 2 min |
 | 02-printer-simulation | 3/3 | 20 min | 7 min |
 | 03-local-dashboard | 4/4 | 7 min | 2 min |
-| 04-multi-device-mesh | 1/? | 1 min | 1 min |
+| 04-multi-device-mesh | 3/? | 5 min | 2 min |
 
 **Recent Trend:**
-- 03-02: 1 min (Globe component with react-globe.gl)
-- 03-03: 2 min (TanStack Table with columns and status badges)
 - 03-04: 3 min (Detail panel, job queue, Dashboard orchestration)
 - 04-01: 1 min (Presence types and usePresence hook)
+- 04-02: 3 min (Site filtering in usePrinters hook)
+- 04-03: 1 min (MeshIndicator and SiteSelector components)
 - Trend: Clean execution continues
 
 *Updated after each plan completion*
@@ -71,8 +71,14 @@ Recent decisions affecting current work:
 | 03 | 04 | Selected printer syncs with live data | useEffect watches printers array to update selection |
 | 03 | 04 | Panel auto-closes on printer disappear | Handle deleted/offline printers gracefully |
 | 03 | 04 | JobQueue future-proofed | Accepts array for future job_queue collection |
-| 04 | 01 | Typed observer as { cancel: () => void } | Simpler than full SDK type for useRef |
+| 04 | 01 | Typed observer as Observer (SDK type) | Use stop() not cancel() for presence observer |
 | 04 | 01 | Extract connectionTypes via Set | Unique values from peer connections |
+| 04 | 02 | Backward compatible siteCode parameter | No options = theater-wide view (all printers) |
+| 04 | 02 | DQL WHERE with :site parameter | Efficient site filtering via location.site_code |
+| 04 | 02 | Separate useEffect for site changes | Avoid Ditto reinit on filter change |
+| 04 | 03 | Green/yellow status dot colors | Standard connected/connecting visual pattern |
+| 04 | 03 | Null = All Sites theater-wide view | SiteSelector maps dropdown to filter value |
+| 04 | 03 | Via cloud annotation for WebSocket | Expected for web browsers connecting via relay |
 
 ### Pending Todos
 
@@ -84,15 +90,17 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-06T05:33:52Z
-Stopped at: Completed 04-01-PLAN.md (Presence Hook)
+Last session: 2026-02-06T05:37:47Z
+Stopped at: Completed 04-03-PLAN.md (Mesh UI Components)
 Resume file: None
 
 ## Next Steps
 
 Phase 4: Multi-Device Mesh - IN PROGRESS
 - [x] 04-01: Presence types and usePresence hook
-- [ ] 04-02+: Dashboard mesh health indicators (if defined)
+- [x] 04-02: Site filtering in usePrinters hook
+- [x] 04-03: MeshIndicator and SiteSelector components
+- [ ] 04-04+: Dashboard integration with mesh components (if defined)
 
 ## Deployed Components
 
