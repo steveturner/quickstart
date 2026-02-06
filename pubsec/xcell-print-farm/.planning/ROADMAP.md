@@ -8,7 +8,7 @@ A Ditto-powered 3D print farm monitoring system built for DDIL environments. Six
 
 - [x] **Phase 1: Local Foundation** - Offline-first React app with Ditto SDK integration
 - [x] **Phase 2: Printer Simulation** - C++ simulator generating realistic printer telemetry
-- [ ] **Phase 3: Local Dashboard** - Single-device web UI showing printer status and metrics
+- [x] **Phase 3: Local Dashboard** - Single-device web UI showing printer status and metrics
 - [ ] **Phase 4: Multi-Device Mesh** - P2P sync between xCells via BLE/LAN at FOB
 - [ ] **Phase 5: Cloud Sync** - Theater-wide visibility via Ditto cloud bridge
 - [ ] **Phase 6: Fleet Dashboard** - Aggregated analytics and production metrics
@@ -62,10 +62,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md - Data layer and TypeScript types for printer schema
-- [ ] 03-02-PLAN.md - 3D globe visualization with location markers
-- [ ] 03-03-PLAN.md - Printer table with TanStack Table
-- [ ] 03-04-PLAN.md - Detail panel, job queue, and Dashboard orchestration
+- [x] 03-01-PLAN.md - Data layer and TypeScript types for printer schema
+- [x] 03-02-PLAN.md - 3D globe visualization with location markers
+- [x] 03-03-PLAN.md - Printer table with TanStack Table
+- [x] 03-04-PLAN.md - Detail panel, job queue, and Dashboard orchestration
 
 ### Phase 4: Multi-Device Mesh
 **Goal**: Multiple xCells at same FOB sync printer data via P2P mesh
@@ -76,10 +76,13 @@ Plans:
   2. Dashboard shows mesh health indicator with peer count
   3. When device goes offline and returns, mesh auto-reconnects and syncs changes
   4. Dashboard groups printers by site (local FOB vs theater-wide)
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: TBD during planning
+- [ ] 04-01-PLAN.md - Mesh types and usePresence hook
+- [ ] 04-02-PLAN.md - Site filter support in usePrinters
+- [ ] 04-03-PLAN.md - MeshIndicator and SiteSelector components
+- [ ] 04-04-PLAN.md - Dashboard integration and verification
 
 ### Phase 5: Cloud Sync
 **Goal**: Theater commander sees all distributed xCells when connectivity allows
@@ -115,8 +118,8 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Local Foundation | 4/4 | Complete | 2026-02-05 |
 | 2. Printer Simulation | 3/3 | Complete | 2026-02-05 |
-| 3. Local Dashboard | 0/4 | Planned | - |
-| 4. Multi-Device Mesh | 0/TBD | Not started | - |
+| 3. Local Dashboard | 4/4 | Complete | 2026-02-06 |
+| 4. Multi-Device Mesh | 0/4 | Not started | - |
 | 5. Cloud Sync | 0/TBD | Not started | - |
 | 6. Fleet Dashboard | 0/TBD | Not started | - |
 
