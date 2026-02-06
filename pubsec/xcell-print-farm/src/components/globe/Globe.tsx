@@ -9,7 +9,11 @@ interface GlobeProps {
   selectedSite: string | null;
 }
 
-export function Globe({ locations, onLocationClick, selectedSite }: GlobeProps) {
+export function Globe({
+  locations,
+  onLocationClick,
+  selectedSite,
+}: GlobeProps) {
   const globeRef = useRef<GlobeMethods | undefined>();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +38,8 @@ export function Globe({ locations, onLocationClick, selectedSite }: GlobeProps) 
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
-    return () => document.removeEventListener('visibilitychange', handleVisibility);
+    return () =>
+      document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   // Handle globe background click to clear selection
@@ -50,7 +55,7 @@ export function Globe({ locations, onLocationClick, selectedSite }: GlobeProps) 
         onLocationClick(siteCode);
       });
     },
-    [selectedSite, onLocationClick]
+    [selectedSite, onLocationClick],
   );
 
   return (

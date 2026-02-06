@@ -11,5 +11,62 @@ services:
         DITTO_AUTH_URL: ${DITTO_AUTH_URL}
         DITTO_WEBSOCKET_URL: ${DITTO_WEBSOCKET_URL}
     ports:
-      - "8080:80"
+      - '8080:80'
     restart: unless-stopped
+
+  # FOB Alpha - Ramstein Air Base, Germany (EUCOM)
+  printer-sim-1:
+    build:
+      context: ./printer-simulator
+      dockerfile: Dockerfile
+    environment:
+      - DITTO_APP_ID=${DITTO_APP_ID}
+      - DITTO_PLAYGROUND_TOKEN=${DITTO_PLAYGROUND_TOKEN}
+      - DITTO_AUTH_URL=${DITTO_AUTH_URL}
+      - DITTO_WEBSOCKET_URL=${DITTO_WEBSOCKET_URL}
+      - PRINTER_ID=printer-001
+      - LOCATION_NAME=Ramstein Air Base, Germany
+      - LOCATION_SITE_CODE=FOB-ALPHA
+      - LOCATION_LATITUDE=49.4369
+      - LOCATION_LONGITUDE=7.6003
+    restart: unless-stopped
+    depends_on:
+      - xcell-dashboard
+
+  # FOB Bravo - Camp Humphreys, South Korea (INDOPACOM)
+  printer-sim-2:
+    build:
+      context: ./printer-simulator
+      dockerfile: Dockerfile
+    environment:
+      - DITTO_APP_ID=${DITTO_APP_ID}
+      - DITTO_PLAYGROUND_TOKEN=${DITTO_PLAYGROUND_TOKEN}
+      - DITTO_AUTH_URL=${DITTO_AUTH_URL}
+      - DITTO_WEBSOCKET_URL=${DITTO_WEBSOCKET_URL}
+      - PRINTER_ID=printer-002
+      - LOCATION_NAME=Camp Humphreys, South Korea
+      - LOCATION_SITE_CODE=FOB-BRAVO
+      - LOCATION_LATITUDE=36.9631
+      - LOCATION_LONGITUDE=127.0311
+    restart: unless-stopped
+    depends_on:
+      - xcell-dashboard
+
+  # FOB Charlie - Al Udeid Air Base, Qatar (CENTCOM)
+  printer-sim-3:
+    build:
+      context: ./printer-simulator
+      dockerfile: Dockerfile
+    environment:
+      - DITTO_APP_ID=${DITTO_APP_ID}
+      - DITTO_PLAYGROUND_TOKEN=${DITTO_PLAYGROUND_TOKEN}
+      - DITTO_AUTH_URL=${DITTO_AUTH_URL}
+      - DITTO_WEBSOCKET_URL=${DITTO_WEBSOCKET_URL}
+      - PRINTER_ID=printer-003
+      - LOCATION_NAME=Al Udeid Air Base, Qatar
+      - LOCATION_SITE_CODE=FOB-CHARLIE
+      - LOCATION_LATITUDE=25.1173
+      - LOCATION_LONGITUDE=51.3147
+    restart: unless-stopped
+    depends_on:
+      - xcell-dashboard

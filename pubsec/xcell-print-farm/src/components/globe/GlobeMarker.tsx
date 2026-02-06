@@ -8,7 +8,7 @@ import type { LocationMarker } from '../../types/printer';
 export function createMarkerElement(
   marker: LocationMarker,
   selectedSite: string | null,
-  onClick: (siteCode: string) => void
+  onClick: (siteCode: string) => void,
 ): HTMLElement {
   const el = document.createElement('div');
   const isSelected = selectedSite === marker.site_code;
@@ -29,15 +29,21 @@ export function createMarkerElement(
 
   // Green dots for idle
   for (let i = 0; i < statusSummary.idle; i++) {
-    dots.push('<span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span>');
+    dots.push(
+      '<span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span>',
+    );
   }
   // Blue dots for printing
   for (let i = 0; i < statusSummary.printing; i++) {
-    dots.push('<span class="w-2 h-2 rounded-full bg-blue-500 inline-block"></span>');
+    dots.push(
+      '<span class="w-2 h-2 rounded-full bg-blue-500 inline-block"></span>',
+    );
   }
   // Red dots for error
   for (let i = 0; i < statusSummary.error; i++) {
-    dots.push('<span class="w-2 h-2 rounded-full bg-red-500 inline-block"></span>');
+    dots.push(
+      '<span class="w-2 h-2 rounded-full bg-red-500 inline-block"></span>',
+    );
   }
 
   el.innerHTML = `

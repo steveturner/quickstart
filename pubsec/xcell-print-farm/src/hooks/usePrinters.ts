@@ -47,14 +47,14 @@ export function usePrinters() {
 
         // Disable strict mode for flexible queries
         await dittoRef.current.store.execute(
-          'ALTER SYSTEM SET DQL_STRICT_MODE = false'
+          'ALTER SYSTEM SET DQL_STRICT_MODE = false',
         );
 
         dittoRef.current.startSync();
 
         // Register subscription (determines what syncs to this peer)
         subscriptionRef.current = dittoRef.current.sync.registerSubscription(
-          'SELECT * FROM printers'
+          'SELECT * FROM printers',
         );
 
         // Register observer (runs against local database)
@@ -64,7 +64,7 @@ export function usePrinters() {
             const docs = results.items.map((item) => item.value);
             setPrinters(docs);
             console.log('Printers updated:', docs.length);
-          }
+          },
         );
 
         setIsInitialized(true);

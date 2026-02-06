@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Ditto, init, IdentityOnlinePlayground, StoreObserver, SyncSubscription } from '@dittolive/ditto';
+import {
+  Ditto,
+  init,
+  IdentityOnlinePlayground,
+  StoreObserver,
+  SyncSubscription,
+} from '@dittolive/ditto';
 
 export type TestDocument = {
   _id: string;
@@ -47,25 +53,26 @@ export function useDitto() {
 
         // Disable strict mode for flexible queries
         await dittoRef.current.store.execute(
-          'ALTER SYSTEM SET DQL_STRICT_MODE = false'
+          'ALTER SYSTEM SET DQL_STRICT_MODE = false',
         );
 
         dittoRef.current.startSync();
 
         // Register subscription (determines what syncs to this peer)
         subscriptionRef.current = dittoRef.current.sync.registerSubscription(
-          'SELECT * FROM test_documents'
+          'SELECT * FROM test_documents',
         );
 
         // Register observer (runs against local database)
-        observerRef.current = dittoRef.current.store.registerObserver<TestDocument>(
-          'SELECT * FROM test_documents WHERE deleted=false ORDER BY createdAt DESC',
-          (results) => {
-            const docs = results.items.map((item) => item.value);
-            setDocuments(docs);
-            console.log('Documents updated:', docs.length);
-          }
-        );
+        observerRef.current =
+          dittoRef.current.store.registerObserver<TestDocument>(
+            'SELECT * FROM test_documents WHERE deleted=false ORDER BY createdAt DESC',
+            (results) => {
+              const docs = results.items.map((item) => item.value);
+              setDocuments(docs);
+              console.log('Documents updated:', docs.length);
+            },
+          );
 
         setIsInitialized(true);
         console.log('Ditto initialized successfully');
@@ -95,9 +102,15 @@ export function useDitto() {
           createdAt: new Date().toISOString(),
           deleted: false,
         },
-      }
+      },
     );
   };
 
-  return { ditto: dittoRef.current, isInitialized, error, documents, createDocument };
+  return {
+    ditto: dittoRef.current,
+    isInitialized,
+    error,
+    documents,
+    createDocument,
+  };
 }

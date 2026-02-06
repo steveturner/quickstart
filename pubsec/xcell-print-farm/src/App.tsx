@@ -7,7 +7,9 @@ function App() {
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold">xCell Print Farm Monitor</h1>
-        <p className="text-gray-400 mt-2">DDIL-Resilient Manufacturing Visibility</p>
+        <p className="text-gray-400 mt-2">
+          DDIL-Resilient Manufacturing Visibility
+        </p>
       </header>
 
       <div className="bg-gray-800 rounded-lg p-6 max-w-md">
@@ -16,7 +18,9 @@ function App() {
         <div className="space-y-3">
           <div className="flex justify-between">
             <span className="text-gray-400">SDK Status:</span>
-            <span className={isInitialized ? 'text-green-400' : 'text-yellow-400'}>
+            <span
+              className={isInitialized ? 'text-green-400' : 'text-yellow-400'}
+            >
               {isInitialized ? 'Initialized' : 'Initializing...'}
             </span>
           </div>
