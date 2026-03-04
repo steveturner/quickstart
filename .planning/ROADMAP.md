@@ -42,7 +42,7 @@ Plans:
 **Requirements**: DATA-01, DATA-02, DATA-03, DATA-04, DATA-05
 **Success Criteria** (what must be TRUE):
   1. Kotlin data classes exist for Product, Order, and InventoryItem with fields matching the spec (no field name drift between Firestore and Ditto representations)
-  2. Firestore collections for products, orders, and inventory are seeded with test data readable in Firebase console
+  2. Firestore collections for products and inventory are seeded with catalog data readable in Firebase console (orders are transactional and created at runtime, not seeded)
   3. Every document in Firestore and Ditto uses a single canonical UUID as its ID (no auto-generated ID divergence)
   4. All documents carry a `deleted` boolean field; no code performs physical deletes
   5. Inventory write operations use delta events rather than absolute quantity overwrites
@@ -57,15 +57,15 @@ Plans:
 **Depends on**: Phase 2
 **Requirements**: SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, POSU-01, POSU-02, POSU-03, POSU-04, POSU-05
 **Success Criteria** (what must be TRUE):
-  1. Products added in Firebase console appear in the POS product catalog screen within a few seconds (Firebase → Ditto direction works)
-  2. An order created on-device appears in Firestore within a few seconds when Firebase is connected (Ditto → Firebase direction works)
+  1. Products added in Firebase console appear in the POS product catalog screen within a few seconds (Firebase -> Ditto direction works)
+  2. An order created on-device appears in Firestore within a few seconds when Firebase is connected (Ditto -> Firebase direction works)
   3. Writing a document to either system does not produce an infinite cascade of writes (ChangeGuard prevents sync loops)
-  4. With Firebase connectivity disabled, a user can browse products, create an order, and see inventory decrement — all without internet
+  4. With Firebase connectivity disabled, a user can browse products, create an order, and see inventory decrement -- all without internet
   5. Orders created offline appear in Firestore after connectivity is restored
 **Plans**: TBD
 
 ### Phase 4: Connectivity and Demo Layer
-**Goal**: The bridge's behavior is legible to a developer audience — connectivity state is visible on-screen and the offline scenario is demonstrable without airplane mode
+**Goal**: The bridge's behavior is legible to a developer audience -- connectivity state is visible on-screen and the offline scenario is demonstrable without airplane mode
 **Depends on**: Phase 3
 **Requirements**: DEMO-01, DEMO-02, DEMO-03, DEMO-04
 **Success Criteria** (what must be TRUE):
@@ -78,7 +78,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
