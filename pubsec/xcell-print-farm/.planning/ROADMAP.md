@@ -9,7 +9,7 @@ A Ditto-powered 3D print farm monitoring system built for DDIL environments. Six
 - [x] **Phase 1: Local Foundation** - Offline-first React app with Ditto SDK integration
 - [x] **Phase 2: Printer Simulation** - C++ simulator generating realistic printer telemetry
 - [x] **Phase 3: Local Dashboard** - Single-device web UI showing printer status and metrics
-- [ ] **Phase 4: Multi-Device Mesh** - P2P sync between xCells via BLE/LAN at FOB
+- [x] **Phase 4: Multi-Device Mesh** - P2P sync between xCells via BLE/LAN at FOB
 - [ ] **Phase 5: Cloud Sync** - Theater-wide visibility via Ditto cloud bridge
 - [ ] **Phase 6: Fleet Dashboard** - Aggregated analytics and production metrics
 
@@ -79,10 +79,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 04-01-PLAN.md - Mesh types and usePresence hook
-- [ ] 04-02-PLAN.md - Site filter support in usePrinters
-- [ ] 04-03-PLAN.md - MeshIndicator and SiteSelector components
-- [ ] 04-04-PLAN.md - Dashboard integration and verification
+- [x] 04-01-PLAN.md - Mesh types and usePresence hook
+- [x] 04-02-PLAN.md - Site filter support in usePrinters
+- [x] 04-03-PLAN.md - MeshIndicator and SiteSelector components
+- [x] 04-04-PLAN.md - Dashboard integration and verification
 
 ### Phase 5: Cloud Sync
 **Goal**: Theater commander sees all distributed xCells when connectivity allows
@@ -119,7 +119,7 @@ Plans:
 | 1. Local Foundation | 4/4 | Complete | 2026-02-05 |
 | 2. Printer Simulation | 3/3 | Complete | 2026-02-05 |
 | 3. Local Dashboard | 4/4 | Complete | 2026-02-06 |
-| 4. Multi-Device Mesh | 0/4 | Not started | - |
+| 4. Multi-Device Mesh | 4/4 | Complete | 2026-02-06 |
 | 5. Cloud Sync | 0/TBD | Not started | - |
 | 6. Fleet Dashboard | 0/TBD | Not started | - |
 
