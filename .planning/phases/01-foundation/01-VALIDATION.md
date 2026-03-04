@@ -2,8 +2,8 @@
 phase: 1
 slug: foundation
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-03-03
 ---
 
@@ -50,9 +50,9 @@ created: 2026-03-03
 
 ## Wave 0 Requirements
 
-- [ ] `app/src/test/java/live/ditto/pubsec/pos/KoinModuleTest.kt` — stubs for FOUN-03 (Koin module verification via checkModules())
-- [ ] `app/src/test/java/live/ditto/pubsec/pos/FirestoreSettingsTest.kt` — stubs for FOUN-02 (persistence disabled check)
-- [ ] `app/src/test/java/live/ditto/pubsec/pos/ExampleUnitTest.kt` — placeholder covering FOUN-04 build compilation
+- [ ] `app/src/test/java/live/ditto/pubsec/pos/KoinModuleTest.kt` — stubs for FOUN-03 (Koin module verification via checkModules()) — **created by Plan 03 Task 1**
+- [ ] `app/src/test/java/live/ditto/pubsec/pos/FirestoreSettingsTest.kt` — stubs for FOUN-02 (persistence disabled check via memoryCacheSettings assertion) — **created by Plan 03 Task 1**
+- [ ] `app/src/test/java/live/ditto/pubsec/pos/ExampleUnitTest.kt` — placeholder covering FOUN-04 build compilation — **created by Plan 03 Task 1**
 
 *Existing infrastructure: none — new project.*
 
@@ -70,11 +70,11 @@ created: 2026-03-03
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
 - [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 15s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 15s
+- [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
