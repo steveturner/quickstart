@@ -66,7 +66,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — SyncBridgeManager: bidirectional bridge, ChangeGuard, Firebase RTDB connection detection, subscriptions, tests
-- [ ] 03-02-PLAN.md — Navigation shell, CatalogScreen with product grid/cart/order submission, CatalogViewModel, tests
+- [x] 03-02-PLAN.md — Navigation shell, CatalogScreen with product grid/cart/order submission, CatalogViewModel, tests
 - [ ] 03-03-PLAN.md — OrdersScreen with LazyColumn order list, OrdersViewModel with Ditto observer, tests
 
 ### Phase 4: Connectivity and Demo Layer
@@ -89,5 +89,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
 | 2. Data Models | 2/2 | Complete   | 2026-03-04 |
-| 3. Sync Bridge and POS UI | 1/3 | In progress | - |
+| 3. Sync Bridge and POS UI | 2/3 | In progress | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
