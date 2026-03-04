@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-04T17:55:20.049Z"
+stopped_at: Completed 02-data-models-01-PLAN.md
+last_updated: "2026-03-04T18:15:30.695Z"
 last_activity: 2026-03-03 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 5
+  completed_plans: 4
   percent: 0
 ---
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P01 | 25 | 2 tasks | 13 files |
 | Phase 01-foundation P02 | 2 | 2 tasks | 4 files |
 | Phase 01-foundation P03 | 10 | 2 tasks | 9 files |
+| Phase 02-data-models P01 | 2 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Firebase import path is com.google.firebase.Firebase (not ktx) — KTX bundled in main artifact since BoM 34.0.0
 - [Phase 01-foundation]: ditto.startSync() deferred to Phase 3 — no subscriptions exist yet
 - [Phase 01-foundation]: JVM unit tests use stub appModule with mockk instances; Ditto JNI and Firebase Process.myPid require Android runtime
+- [Phase 02-data-models]: All data class properties are val (immutable); mutation via copy() only
+- [Phase 02-data-models]: Order.status is String not enum in data class — DQL stores strings, OrderStatus enum used at app layer only
+- [Phase 02-data-models]: Collections.Fields nested object added to prevent hardcoded strings in repository/bridge code
 
 ### Pending Todos
 
@@ -84,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-04T17:55:20.047Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-data-models/02-CONTEXT.md
+Last session: 2026-03-04T18:15:30.693Z
+Stopped at: Completed 02-data-models-01-PLAN.md
+Resume file: None

@@ -15,11 +15,11 @@
 
 ### Data Model
 
-- [ ] **DATA-01**: Products collection with canonical UUID IDs shared between Firestore and Ditto (name, price, category, imageUrl)
-- [ ] **DATA-02**: Orders collection with canonical UUID IDs shared between Firestore and Ditto (items, total, status, timestamp, terminalId)
-- [ ] **DATA-03**: Inventory collection with canonical UUID IDs shared between Firestore and Ditto (productId, quantity)
-- [ ] **DATA-04**: Soft delete convention using `deleted` flag (not hard deletes) in both systems
-- [ ] **DATA-05**: SyncSource tagging on all bridge-written documents to prevent sync loops
+- [x] **DATA-01**: Products collection with canonical UUID IDs shared between Firestore and Ditto (name, price, category, imageUrl)
+- [x] **DATA-02**: Orders collection with canonical UUID IDs shared between Firestore and Ditto (items, total, status, timestamp, terminalId)
+- [x] **DATA-03**: Inventory collection with canonical UUID IDs shared between Firestore and Ditto (productId, quantity)
+- [x] **DATA-04**: Soft delete convention using `deleted` flag (not hard deletes) in both systems
+- [x] **DATA-05**: SyncSource tagging on all bridge-written documents to prevent sync loops
 
 ### Sync Bridge
 
@@ -82,11 +82,11 @@
 | FOUN-03 | Phase 1 | Complete |
 | FOUN-04 | Phase 1 | Complete |
 | FOUN-05 | Phase 1 | Complete |
-| DATA-01 | Phase 2 | Pending |
-| DATA-02 | Phase 2 | Pending |
-| DATA-03 | Phase 2 | Pending |
-| DATA-04 | Phase 2 | Pending |
-| DATA-05 | Phase 2 | Pending |
+| DATA-01 | Phase 2 | Complete |
+| DATA-02 | Phase 2 | Complete |
+| DATA-03 | Phase 2 | Complete |
+| DATA-04 | Phase 2 | Complete |
+| DATA-05 | Phase 2 | Complete |
 | SYNC-01 | Phase 3 | Pending |
 | SYNC-02 | Phase 3 | Pending |
 | SYNC-03 | Phase 3 | Pending |

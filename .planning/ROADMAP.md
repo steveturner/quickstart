@@ -83,6 +83,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
-| 2. Data Models | 0/2 | Planning complete | - |
+| 2. Data Models | 1/2 | In Progress|  |
 | 3. Sync Bridge and POS UI | 0/TBD | Not started | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
