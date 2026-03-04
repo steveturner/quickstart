@@ -23,11 +23,11 @@
 
 ### Sync Bridge
 
-- [ ] **SYNC-01**: Firebase-to-Ditto bridge — Firestore SnapshotListener writes changes into Ditto local store for all 3 collections
-- [ ] **SYNC-02**: Ditto-to-Firebase bridge — Ditto registerObserver triggers Firestore writes for all 3 collections
-- [ ] **SYNC-03**: ChangeGuard preventing infinite sync loops (hasPendingWrites on Firestore side, syncSource skip on Ditto side)
-- [ ] **SYNC-04**: Bridge pauses gracefully when Firebase is unreachable and resumes on reconnect
-- [ ] **SYNC-05**: Ditto registerSubscription active for all 3 collections to pull data from P2P peers
+- [x] **SYNC-01**: Firebase-to-Ditto bridge — Firestore SnapshotListener writes changes into Ditto local store for all 3 collections
+- [x] **SYNC-02**: Ditto-to-Firebase bridge — Ditto registerObserver triggers Firestore writes for all 3 collections
+- [x] **SYNC-03**: ChangeGuard preventing infinite sync loops (hasPendingWrites on Firestore side, syncSource skip on Ditto side)
+- [x] **SYNC-04**: Bridge pauses gracefully when Firebase is unreachable and resumes on reconnect
+- [x] **SYNC-05**: Ditto registerSubscription active for all 3 collections to pull data from P2P peers
 
 ### POS UI
 
@@ -87,11 +87,11 @@
 | DATA-03 | Phase 2 | Complete |
 | DATA-04 | Phase 2 | Complete |
 | DATA-05 | Phase 2 | Complete |
-| SYNC-01 | Phase 3 | Pending |
-| SYNC-02 | Phase 3 | Pending |
-| SYNC-03 | Phase 3 | Pending |
-| SYNC-04 | Phase 3 | Pending |
-| SYNC-05 | Phase 3 | Pending |
+| SYNC-01 | Phase 3 | Complete |
+| SYNC-02 | Phase 3 | Complete |
+| SYNC-03 | Phase 3 | Complete |
+| SYNC-04 | Phase 3 | Complete |
+| SYNC-05 | Phase 3 | Complete |
 | POSU-01 | Phase 3 | Pending |
 | POSU-02 | Phase 3 | Pending |
 | POSU-03 | Phase 3 | Pending |
@@ -109,4 +109,4 @@
 
 ---
 *Requirements defined: 2026-03-03*
-*Last updated: 2026-03-03 after roadmap creation*
+*Last updated: 2026-03-04 after Phase 3 Plan 1 completion*

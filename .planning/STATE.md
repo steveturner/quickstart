@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 3 research complete, ready for planner
-last_updated: "2026-03-04T21:22:49.641Z"
-last_activity: 2026-03-03 — Roadmap created
+status: executing
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-04T21:55:00Z"
+last_activity: 2026-03-04 — Completed Phase 3 Plan 1 (SyncBridgeManager)
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
-  percent: 0
+  total_plans: 8
+  completed_plans: 6
+  percent: 75
 ---
 
 # Project State
@@ -21,40 +21,40 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** POS terminals continue processing transactions and stay in sync via Ditto P2P mesh even when Firebase/internet is unavailable
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 3 -- Sync Bridge and POS UI
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-03 — Roadmap created
+Phase: 3 of 4 (Sync Bridge and POS UI)
+Plan: 1 of 3 in current phase
+Status: Executing
+Last activity: 2026-03-04 -- Completed 03-01 SyncBridgeManager
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [=======---] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 6
+- Average duration: ~10 min
+- Total execution time: ~52 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-- Last 5 plans: —
-- Trend: —
-
-*Updated after each plan completion*
 | Phase 01-foundation P01 | 25 | 2 tasks | 13 files |
 | Phase 01-foundation P02 | 2 | 2 tasks | 4 files |
 | Phase 01-foundation P03 | 10 | 2 tasks | 9 files |
 | Phase 02-data-models P01 | 2 | 2 tasks | 11 files |
 | Phase 02-data-models P02 | 3 | 2 tasks | 7 files |
+| Phase 03-sync-bridge P01 | 10 | 2 tasks | 6 files |
+
+**Recent Trend:**
+- Last 5 plans: 2, 10, 3, 2, 10 min
+- Trend: Consistent
+
+*Updated after each plan completion*
 
 ## Accumulated Context
 
@@ -64,34 +64,40 @@ Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
 - [Init]: Firebase as primary cloud source of truth; Ditto as edge extension (not standalone)
-- [Init]: UI reads exclusively from Ditto local store — never from Firestore directly
+- [Init]: UI reads exclusively from Ditto local store -- never from Firestore directly
 - [Research]: Inventory uses delta events (not LWW integers) to avoid CRDT data loss under concurrent offline edits
-- [Research]: Single canonical UUID used as both Ditto _id and Firestore document ID — frozen before any write code
+- [Research]: Single canonical UUID used as both Ditto _id and Firestore document ID -- frozen before any write code
 - [Phase 01-foundation]: firebase-firestore declared without version.ref (BoM-managed); firebase-firestore-ktx is retired in BoM 34.0.0
 - [Phase 01-foundation]: trim('"') strips bash-style quoted values from Properties before embedding in BuildConfig string literals
 - [Phase 01-foundation]: Stub google-services.json committed so CI builds pass without a real Firebase project
-- [Phase 01-foundation]: Firebase import path is com.google.firebase.Firebase (not ktx) — KTX bundled in main artifact since BoM 34.0.0
-- [Phase 01-foundation]: ditto.startSync() deferred to Phase 3 — no subscriptions exist yet
+- [Phase 01-foundation]: Firebase import path is com.google.firebase.Firebase (not ktx) -- KTX bundled in main artifact since BoM 34.0.0
+- [Phase 01-foundation]: ditto.startSync() deferred to Phase 3 -- no subscriptions exist yet
 - [Phase 01-foundation]: JVM unit tests use stub appModule with mockk instances; Ditto JNI and Firebase Process.myPid require Android runtime
 - [Phase 02-data-models]: All data class properties are val (immutable); mutation via copy() only
-- [Phase 02-data-models]: Order.status is String not enum in data class — DQL stores strings, OrderStatus enum used at app layer only
+- [Phase 02-data-models]: Order.status is String not enum in data class -- DQL stores strings, OrderStatus enum used at app layer only
 - [Phase 02-data-models]: Collections.Fields nested object added to prevent hardcoded strings in repository/bridge code
-- [Phase 02-data-models]: FirestoreSeeder uses batch.set() with product._id as Firestore document ID — NOT .add() with auto-generated IDs
-- [Phase 02-data-models]: SeedData UUIDs are hardcoded string literals — deterministic IDs survive app restart without re-seeding
-- [Phase 02-data-models]: coJustRun used for Task<Void>.await() mocking — coEvery returns null fails Kotlin non-null check on Void
+- [Phase 02-data-models]: FirestoreSeeder uses batch.set() with product._id as Firestore document ID -- NOT .add() with auto-generated IDs
+- [Phase 02-data-models]: SeedData UUIDs are hardcoded string literals -- deterministic IDs survive app restart without re-seeding
+- [Phase 02-data-models]: coJustRun used for Task<Void>.await() mocking -- coEvery returns null fails Kotlin non-null check on Void
+- [Phase 03-sync-bridge]: hasPendingWrites() method syntax (not property) required for Firestore BoM 34.10.0
+- [Phase 03-sync-bridge]: testOptions.unitTests.isReturnDefaultValues = true added for android.util.Log in JVM tests
+- [Phase 03-sync-bridge]: retryWithBackoff is internal visibility to enable direct testing from test package
+- [Phase 03-sync-bridge]: Ditto/Firebase SDK classes are JNI-final; tests use structural/behavioral verification
+- [Phase 03-sync-bridge]: Inventory quantity stripped from Firestore-to-Ditto bridge to protect CRDT counter
+- [Phase 03-sync-bridge]: Injectable CoroutineDispatcher parameter enables UnconfinedTestDispatcher in tests
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-- [Phase 3]: Ditto DQL upsert syntax (`INSERT INTO ... ON ID CONFLICT DO UPDATE SET`) needs live validation against Ditto 4.14.3 docs during planning
-- [Phase 3]: Firestore has no native connection state callback — Firebase Realtime Database `.info/connected` workaround needed; verify against SDK 34.10.0
-- [Phase 3]: ChangeGuard coroutine dispatcher model needs validation — `runBlocking` may cause ANR from wrong dispatcher
+- [RESOLVED] Ditto DQL upsert syntax: INSERT INTO ... ON ID CONFLICT DO UPDATE_LOCAL_DIFF validated
+- [RESOLVED] Firebase RTDB .info/connected workaround confirmed for connection detection
+- [RESOLVED] ChangeGuard coroutine dispatcher: bridgeScope.launch pattern avoids runBlocking ANR
 
 ## Session Continuity
 
-Last session: 2026-03-04T21:22:49.638Z
-Stopped at: Phase 3 research complete, ready for planner
-Resume file: .planning/phases/03-sync-bridge-and-pos-ui/03-RESEARCH.md
+Last session: 2026-03-04T21:55:00Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-sync-bridge-and-pos-ui/03-01-SUMMARY.md

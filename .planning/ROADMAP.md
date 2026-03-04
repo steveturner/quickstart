@@ -49,8 +49,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Data model classes (Product, Order, InventoryItem, OrderStatus, Collections) and unit tests
-- [ ] 02-02-PLAN.md — SeedData catalog, FirestoreSeeder, Koin wiring, seed/seeder tests
+- [x] 02-01-PLAN.md — Data model classes (Product, Order, InventoryItem, OrderStatus, Collections) and unit tests
+- [x] 02-02-PLAN.md — SeedData catalog, FirestoreSeeder, Koin wiring, seed/seeder tests
 
 ### Phase 3: Sync Bridge and POS UI
 **Goal**: Bidirectional sync bridge is live for all three collections and the POS UI reads exclusively from Ditto local store — the core demo thesis is provable
@@ -65,7 +65,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — SyncBridgeManager: bidirectional bridge, ChangeGuard, Firebase RTDB connection detection, subscriptions, tests
+- [x] 03-01-PLAN.md — SyncBridgeManager: bidirectional bridge, ChangeGuard, Firebase RTDB connection detection, subscriptions, tests
 - [ ] 03-02-PLAN.md — Navigation shell, CatalogScreen with product grid/cart/order submission, CatalogViewModel, tests
 - [ ] 03-03-PLAN.md — OrdersScreen with LazyColumn order list, OrdersViewModel with Ditto observer, tests
 
@@ -89,5 +89,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
 | 2. Data Models | 2/2 | Complete   | 2026-03-04 |
-| 3. Sync Bridge and POS UI | 0/3 | Not started | - |
+| 3. Sync Bridge and POS UI | 1/3 | In progress | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
