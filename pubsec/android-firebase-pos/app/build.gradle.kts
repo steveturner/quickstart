@@ -115,6 +115,9 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines)
+    testImplementation("io.insert-koin:koin-test:4.1.0")
+    testImplementation("io.insert-koin:koin-test-junit4:4.1.0")
+    testImplementation("io.mockk:mockk:1.13.12")
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
