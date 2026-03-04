@@ -62,7 +62,12 @@ Plans:
   3. Writing a document to either system does not produce an infinite cascade of writes (ChangeGuard prevents sync loops)
   4. With Firebase connectivity disabled, a user can browse products, create an order, and see inventory decrement -- all without internet
   5. Orders created offline appear in Firestore after connectivity is restored
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — SyncBridgeManager: bidirectional bridge, ChangeGuard, Firebase RTDB connection detection, subscriptions, tests
+- [ ] 03-02-PLAN.md — Navigation shell, CatalogScreen with product grid/cart/order submission, CatalogViewModel, tests
+- [ ] 03-03-PLAN.md — OrdersScreen with LazyColumn order list, OrdersViewModel with Ditto observer, tests
 
 ### Phase 4: Connectivity and Demo Layer
 **Goal**: The bridge's behavior is legible to a developer audience -- connectivity state is visible on-screen and the offline scenario is demonstrable without airplane mode
@@ -84,5 +89,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
 | 2. Data Models | 2/2 | Complete   | 2026-03-04 |
-| 3. Sync Bridge and POS UI | 0/TBD | Not started | - |
+| 3. Sync Bridge and POS UI | 0/3 | Not started | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
