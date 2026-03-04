@@ -77,36 +77,36 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUN-01 | — | Pending |
-| FOUN-02 | — | Pending |
-| FOUN-03 | — | Pending |
-| FOUN-04 | — | Pending |
-| FOUN-05 | — | Pending |
-| DATA-01 | — | Pending |
-| DATA-02 | — | Pending |
-| DATA-03 | — | Pending |
-| DATA-04 | — | Pending |
-| DATA-05 | — | Pending |
-| SYNC-01 | — | Pending |
-| SYNC-02 | — | Pending |
-| SYNC-03 | — | Pending |
-| SYNC-04 | — | Pending |
-| SYNC-05 | — | Pending |
-| POSU-01 | — | Pending |
-| POSU-02 | — | Pending |
-| POSU-03 | — | Pending |
-| POSU-04 | — | Pending |
-| POSU-05 | — | Pending |
-| DEMO-01 | — | Pending |
-| DEMO-02 | — | Pending |
-| DEMO-03 | — | Pending |
-| DEMO-04 | — | Pending |
+| FOUN-01 | Phase 1 | Pending |
+| FOUN-02 | Phase 1 | Pending |
+| FOUN-03 | Phase 1 | Pending |
+| FOUN-04 | Phase 1 | Pending |
+| FOUN-05 | Phase 1 | Pending |
+| DATA-01 | Phase 2 | Pending |
+| DATA-02 | Phase 2 | Pending |
+| DATA-03 | Phase 2 | Pending |
+| DATA-04 | Phase 2 | Pending |
+| DATA-05 | Phase 2 | Pending |
+| SYNC-01 | Phase 3 | Pending |
+| SYNC-02 | Phase 3 | Pending |
+| SYNC-03 | Phase 3 | Pending |
+| SYNC-04 | Phase 3 | Pending |
+| SYNC-05 | Phase 3 | Pending |
+| POSU-01 | Phase 3 | Pending |
+| POSU-02 | Phase 3 | Pending |
+| POSU-03 | Phase 3 | Pending |
+| POSU-04 | Phase 3 | Pending |
+| POSU-05 | Phase 3 | Pending |
+| DEMO-01 | Phase 4 | Pending |
+| DEMO-02 | Phase 4 | Pending |
+| DEMO-03 | Phase 4 | Pending |
+| DEMO-04 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24 (pending roadmap creation)
+- Mapped to phases: 24
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-03*
-*Last updated: 2026-03-03 after initial definition*
+*Last updated: 2026-03-03 after roadmap creation*
