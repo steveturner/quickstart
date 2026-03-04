@@ -13,7 +13,7 @@ An Android demo app proving that POS terminals keep operating via Ditto P2P mesh
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Android app boots with Ditto and Firebase initialized, DI wired, ProGuard configured (completed 2026-03-04)
-- [ ] **Phase 2: Data Models** - Schema contracts locked — canonical IDs, soft deletes, inventory delta events
+- [x] **Phase 2: Data Models** - Schema contracts locked — canonical IDs, soft deletes, inventory delta events (completed 2026-03-04)
 - [ ] **Phase 3: Sync Bridge and POS UI** - Bidirectional bridge live for all 3 collections; POS screens reading from Ditto local store
 - [ ] **Phase 4: Connectivity and Demo Layer** - Connectivity indicators and offline demo capability wired and visible
 
@@ -83,6 +83,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
-| 2. Data Models | 1/2 | In Progress|  |
+| 2. Data Models | 2/2 | Complete   | 2026-03-04 |
 | 3. Sync Bridge and POS UI | 0/TBD | Not started | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |

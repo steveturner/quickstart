@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-data-models-01-PLAN.md
-last_updated: "2026-03-04T18:15:30.695Z"
+stopped_at: Completed 02-data-models-02-PLAN.md
+last_updated: "2026-03-04T18:21:05.057Z"
 last_activity: 2026-03-03 — Roadmap created
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P02 | 2 | 2 tasks | 4 files |
 | Phase 01-foundation P03 | 10 | 2 tasks | 9 files |
 | Phase 02-data-models P01 | 2 | 2 tasks | 11 files |
+| Phase 02-data-models P02 | 3 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,9 @@ Recent decisions affecting current work:
 - [Phase 02-data-models]: All data class properties are val (immutable); mutation via copy() only
 - [Phase 02-data-models]: Order.status is String not enum in data class — DQL stores strings, OrderStatus enum used at app layer only
 - [Phase 02-data-models]: Collections.Fields nested object added to prevent hardcoded strings in repository/bridge code
+- [Phase 02-data-models]: FirestoreSeeder uses batch.set() with product._id as Firestore document ID — NOT .add() with auto-generated IDs
+- [Phase 02-data-models]: SeedData UUIDs are hardcoded string literals — deterministic IDs survive app restart without re-seeding
+- [Phase 02-data-models]: coJustRun used for Task<Void>.await() mocking — coEvery returns null fails Kotlin non-null check on Void
 
 ### Pending Todos
 
@@ -88,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-04T18:15:30.693Z
-Stopped at: Completed 02-data-models-01-PLAN.md
+Last session: 2026-03-04T18:21:05.055Z
+Stopped at: Completed 02-data-models-02-PLAN.md
 Resume file: None
