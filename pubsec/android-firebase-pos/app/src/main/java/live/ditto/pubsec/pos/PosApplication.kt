@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import live.ditto.Ditto
+import live.ditto.pubsec.pos.sync.SyncBridgeManager
 import live.ditto.pubsec.pos.di.appModule
 import live.ditto.pubsec.pos.di.repositoryModule
 import live.ditto.pubsec.pos.di.viewModelModule
@@ -31,14 +32,16 @@ class PosApplication : Application() {
             modules(appModule, repositoryModule, viewModelModule)
         }
 
-        // 2. Eagerly resolve Ditto on IO dispatcher.
+        // 2. Eagerly resolve Ditto on IO dispatcher, then start sync bridge.
         // Koin single{} blocks are lazy by default — first get<Ditto>() triggers the constructor.
         // Running this on IO ensures Ditto's initialization (which touches disk/network) never
         // blocks the main thread, avoiding StrictMode violations and potential ANR.
+        //
+        // 3. Start sync bridge after Ditto and Firestore are ready.
+        // Bridge registers subscriptions, starts sync, then sets up bidirectional listeners.
         ioScope.launch {
-            get<Ditto>()
+            get<Ditto>()  // ensure Ditto is initialized first
+            get<SyncBridgeManager>().start()
         }
-        // Note: Firebase.firestore is resolved lazily on first use from a repository (Phase 2/3).
-        // It does not need eager init here — firestoreSettings is applied inside the Koin single{}.
     }
 }
