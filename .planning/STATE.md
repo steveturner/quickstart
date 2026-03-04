@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-foundation/01-02-PLAN.md
-last_updated: "2026-03-04T08:46:57.369Z"
+stopped_at: Completed 01-foundation/01-03-PLAN.md
+last_updated: "2026-03-04T08:52:20.374Z"
 last_activity: 2026-03-03 — Roadmap created
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 25 | 2 tasks | 13 files |
 | Phase 01-foundation P02 | 2 | 2 tasks | 4 files |
+| Phase 01-foundation P03 | 10 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,7 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Stub google-services.json committed so CI builds pass without a real Firebase project
 - [Phase 01-foundation]: Firebase import path is com.google.firebase.Firebase (not ktx) — KTX bundled in main artifact since BoM 34.0.0
 - [Phase 01-foundation]: ditto.startSync() deferred to Phase 3 — no subscriptions exist yet
+- [Phase 01-foundation]: JVM unit tests use stub appModule with mockk instances; Ditto JNI and Firebase Process.myPid require Android runtime
 
 ### Pending Todos
 
@@ -82,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-04T08:46:57.367Z
-Stopped at: Completed 01-foundation/01-02-PLAN.md
+Last session: 2026-03-04T08:52:20.373Z
+Stopped at: Completed 01-foundation/01-03-PLAN.md
 Resume file: None
