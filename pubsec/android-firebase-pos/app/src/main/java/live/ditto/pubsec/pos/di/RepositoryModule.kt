@@ -1,6 +1,8 @@
 package live.ditto.pubsec.pos.di
 
+import live.ditto.pubsec.pos.data.seed.FirestoreSeeder
 import org.koin.dsl.module
 
-// Empty stub — repository classes will be added in Phase 2
-val repositoryModule = module {}
+val repositoryModule = module {
+    single { FirestoreSeeder(get()) }
+}
