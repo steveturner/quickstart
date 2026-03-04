@@ -45,7 +45,7 @@ POS terminals continue processing transactions and stay in sync with each other 
 
 ## Constraints
 
-- **SDK**: Ditto Kotlin SDK + Firebase Android SDK (Firestore)
+- **SDK**: Ditto Kotlin SDK + Firebase Android SDK (specifically Firestore — not Realtime Database)
 - **Architecture**: Firebase/Firestore is the source of truth for cloud; Ditto is the source of truth at the edge
 - **UI**: Jetpack Compose (consistent with existing quickstart patterns)
 - **Collections**: Exactly 3 — products, orders, inventory
