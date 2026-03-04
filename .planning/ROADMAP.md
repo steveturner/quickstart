@@ -32,9 +32,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Gradle scaffold: libs.versions.toml, build files, ProGuard, AndroidManifest
-- [ ] 01-02-PLAN.md — Application class, Koin DI modules, Ditto init, Firestore init
-- [ ] 01-03-PLAN.md — MainActivity, StatusScreen, Compose theme, KoinModuleTest + device verification
+- [x] 01-01-PLAN.md — Gradle scaffold: libs.versions.toml, build files, ProGuard, AndroidManifest
+- [x] 01-02-PLAN.md — Application class, Koin DI modules, Ditto init, Firestore init
+- [x] 01-03-PLAN.md — MainActivity, StatusScreen, Compose theme, KoinModuleTest + device verification
 
 ### Phase 2: Data Models
 **Goal**: Schema contracts for all three collections are finalized and enforced before any write code exists — canonical UUID IDs, soft delete convention, and inventory delta-event pattern locked in
@@ -46,7 +46,11 @@ Plans:
   3. Every document in Firestore and Ditto uses a single canonical UUID as its ID (no auto-generated ID divergence)
   4. All documents carry a `deleted` boolean field; no code performs physical deletes
   5. Inventory write operations use delta events rather than absolute quantity overwrites
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Data model classes (Product, Order, InventoryItem, OrderStatus, Collections) and unit tests
+- [ ] 02-02-PLAN.md — SeedData catalog, FirestoreSeeder, Koin wiring, seed/seeder tests
 
 ### Phase 3: Sync Bridge and POS UI
 **Goal**: Bidirectional sync bridge is live for all three collections and the POS UI reads exclusively from Ditto local store — the core demo thesis is provable
@@ -79,6 +83,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-04 |
-| 2. Data Models | 0/TBD | Not started | - |
+| 2. Data Models | 0/2 | Planning complete | - |
 | 3. Sync Bridge and POS UI | 0/TBD | Not started | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
