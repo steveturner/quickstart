@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-04T08:15:04.559Z"
+stopped_at: Completed 01-foundation/01-01-PLAN.md
+last_updated: "2026-03-04T08:42:51.614Z"
 last_activity: 2026-03-03 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 0
 ---
 
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-foundation P01 | 25 | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,9 @@ Recent decisions affecting current work:
 - [Init]: UI reads exclusively from Ditto local store — never from Firestore directly
 - [Research]: Inventory uses delta events (not LWW integers) to avoid CRDT data loss under concurrent offline edits
 - [Research]: Single canonical UUID used as both Ditto _id and Firestore document ID — frozen before any write code
+- [Phase 01-foundation]: firebase-firestore declared without version.ref (BoM-managed); firebase-firestore-ktx is retired in BoM 34.0.0
+- [Phase 01-foundation]: trim('"') strips bash-style quoted values from Properties before embedding in BuildConfig string literals
+- [Phase 01-foundation]: Stub google-services.json committed so CI builds pass without a real Firebase project
 
 ### Pending Todos
 
@@ -75,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-04T08:15:04.557Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation/01-CONTEXT.md
+Last session: 2026-03-04T08:42:43.995Z
+Stopped at: Completed 01-foundation/01-01-PLAN.md
+Resume file: None

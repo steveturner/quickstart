@@ -10,8 +10,8 @@
 - [ ] **FOUN-01**: Android app initializes Ditto SDK with Online Playground identity in Application.onCreate()
 - [ ] **FOUN-02**: Android app initializes Firebase/Firestore with offline persistence disabled
 - [ ] **FOUN-03**: App uses Koin DI for dependency injection consistent with repo patterns
-- [ ] **FOUN-04**: Gradle build uses version catalogs (libs.versions.toml) consistent with repo conventions
-- [ ] **FOUN-05**: ProGuard/R8 rules configured for Ditto SDK in release builds
+- [x] **FOUN-04**: Gradle build uses version catalogs (libs.versions.toml) consistent with repo conventions
+- [x] **FOUN-05**: ProGuard/R8 rules configured for Ditto SDK in release builds
 
 ### Data Model
 
@@ -80,8 +80,8 @@
 | FOUN-01 | Phase 1 | Pending |
 | FOUN-02 | Phase 1 | Pending |
 | FOUN-03 | Phase 1 | Pending |
-| FOUN-04 | Phase 1 | Pending |
-| FOUN-05 | Phase 1 | Pending |
+| FOUN-04 | Phase 1 | Complete |
+| FOUN-05 | Phase 1 | Complete |
 | DATA-01 | Phase 2 | Pending |
 | DATA-02 | Phase 2 | Pending |
 | DATA-03 | Phase 2 | Pending |
