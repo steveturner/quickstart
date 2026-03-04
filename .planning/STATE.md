@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-foundation/01-01-PLAN.md
-last_updated: "2026-03-04T08:42:51.614Z"
+stopped_at: Completed 01-foundation/01-02-PLAN.md
+last_updated: "2026-03-04T08:46:57.369Z"
 last_activity: 2026-03-03 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -51,6 +51,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 25 | 2 tasks | 13 files |
+| Phase 01-foundation P02 | 2 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: firebase-firestore declared without version.ref (BoM-managed); firebase-firestore-ktx is retired in BoM 34.0.0
 - [Phase 01-foundation]: trim('"') strips bash-style quoted values from Properties before embedding in BuildConfig string literals
 - [Phase 01-foundation]: Stub google-services.json committed so CI builds pass without a real Firebase project
+- [Phase 01-foundation]: Firebase import path is com.google.firebase.Firebase (not ktx) — KTX bundled in main artifact since BoM 34.0.0
+- [Phase 01-foundation]: ditto.startSync() deferred to Phase 3 — no subscriptions exist yet
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-04T08:42:43.995Z
-Stopped at: Completed 01-foundation/01-01-PLAN.md
+Last session: 2026-03-04T08:46:57.367Z
+Stopped at: Completed 01-foundation/01-02-PLAN.md
 Resume file: None
