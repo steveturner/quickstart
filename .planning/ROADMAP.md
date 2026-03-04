@@ -29,7 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Firebase/Firestore connects to the project (confirmed via Logcat or Firebase console)
   4. Koin DI graph assembles without errors on startup
   5. ProGuard keep rule for Ditto FFI classes is present in the build configuration
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Gradle scaffold: libs.versions.toml, build files, ProGuard, AndroidManifest
+- [ ] 01-02-PLAN.md — Application class, Koin DI modules, Ditto init, Firestore init
+- [ ] 01-03-PLAN.md — MainActivity, StatusScreen, Compose theme, KoinModuleTest + device verification
 
 ### Phase 2: Data Models
 **Goal**: Schema contracts for all three collections are finalized and enforced before any write code exists — canonical UUID IDs, soft delete convention, and inventory delta-event pattern locked in
@@ -73,7 +78,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/3 | In progress | - |
 | 2. Data Models | 0/TBD | Not started | - |
 | 3. Sync Bridge and POS UI | 0/TBD | Not started | - |
 | 4. Connectivity and Demo Layer | 0/TBD | Not started | - |
