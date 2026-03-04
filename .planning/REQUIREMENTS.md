@@ -34,7 +34,7 @@
 - [x] **POSU-01**: Product catalog screen displaying products from Ditto local store (sourced via bridge from Firestore)
 - [x] **POSU-02**: Create order screen — user can select products, see running total, and submit order
 - [x] **POSU-03**: Inventory decrements when order is placed
-- [ ] **POSU-04**: Orders list screen showing all orders with status
+- [x] **POSU-04**: Orders list screen showing all orders with status
 - [x] **POSU-05**: Jetpack Compose UI consistent with existing quickstart patterns (MVVM + ViewModels)
 
 ### Connectivity & Demo
@@ -95,7 +95,7 @@
 | POSU-01 | Phase 3 | Complete |
 | POSU-02 | Phase 3 | Complete |
 | POSU-03 | Phase 3 | Complete |
-| POSU-04 | Phase 3 | Pending |
+| POSU-04 | Phase 3 | Complete |
 | POSU-05 | Phase 3 | Complete |
 | DEMO-01 | Phase 4 | Pending |
 | DEMO-02 | Phase 4 | Pending |
