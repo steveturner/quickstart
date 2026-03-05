@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firestore ↔ Ditto Sync Flow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 40px 24px; line-height: 1.5; }
+  h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+  .subtitle { color: #8b949e; font-size: 15px; margin-bottom: 40px; }
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-green { background: #1b3a1d; color: #4caf50; }
+  .badge-red { background: #3b1414; color: #ef5350; }
+  .badge-blue { background: #0d2847; color: #58a6ff; }
+
+  .flow-container { display: flex; gap: 0; position: relative; overflow-x: auto; }
+  .lane { flex: 1; min-width: 240px; padding: 16px; position: relative; }
+  .lane-header { text-align: center; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+  .lane-a .lane-header { background: #1a3a5c; color: #58a6ff; }
+  .lane-cloud .lane-header { background: #3b2e14; color: #f0a830; }
+  .lane-b .lane-header { background: #1a3a5c; color: #58a6ff; }
+
+  .step { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; font-size: 13px; position: relative; }
+  .step-num { display: inline-block; background: #30363d; color: #8b949e; font-size: 11px; font-weight: 600; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; margin-right: 8px; }
+  .step-action { font-weight: 500; }
+  .step-detail { color: #8b949e; font-size: 12px; margin-top: 4px; }
+  .step-fail { border-color: #ef5350; background: #1a0f0f; }
+  .step-success { border-color: #4caf50; }
+  .step-warn { border-color: #f0a830; background: #1a1508; }
+
+  .arrow { text-align: center; color: #484f58; font-size: 18px; margin: 4px 0; }
+  .arrow-right { color: #4caf50; }
+  .arrow-cross { color: #ef5350; }
+
+  .connector { display: flex; align-items: center; justify-content: center; margin: 8px 0; }
+  .connector-line { height: 2px; flex: 1; margin: 0 4px; }
+  .connector-line-green { background: #4caf50; }
+  .connector-line-red { background: #ef5350; }
+  .connector-line-blue { background: #58a6ff; }
+  .connector-line-orange { background: #f0a830; }
+  .connector-label { font-size: 11px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+
+  .conflict-box { background: #1a0f0f; border: 2px solid #ef5350; border-radius: 12px; padding: 20px 24px; margin: 20px 0; }
+  .conflict-box h3 { color: #ef5350; font-size: 16px; margin-bottom: 12px; }
+  .conflict-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+  .conflict-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .resolution-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .resolution-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; }
+  .resolution-card h4 { font-size: 15px; margin-bottom: 8px; }
+  .resolution-card p { font-size: 13px; color: #8b949e; margin-bottom: 12px; }
+  .resolution-card ul { font-size: 13px; color: #e6edf3; padding-left: 18px; }
+  .resolution-card li { margin-bottom: 6px; }
+  .resolution-card.recommended { border-color: #4caf50; }
+  .rec-badge { display: inline-block; background: #1b3a1d; color: #4caf50; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-left: 8px; vertical-align: middle; }
+
+  .flow-diagram { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; overflow-x: auto; }
+
+  .swim-lanes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; min-width: 720px; }
+  .swim-lane { padding: 0 12px; position: relative; }
+  .swim-lane:not(:last-child) { border-right: 1px dashed #30363d; }
+
+  .flow-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; min-width: 720px; align-items: start; margin-bottom: 4px; }
+  .flow-cell { padding: 4px 12px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
+  .flow-cell:not(:last-child) { border-right: 1px dashed #21262d; }
+
+  .flow-node { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 8px 12px; font-size: 12px; text-align: center; width: 100%; }
+  .flow-node-green { border-color: #4caf50; }
+  .flow-node-red { border-color: #ef5350; background: #1a0f0f; }
+  .flow-node-orange { border-color: #f0a830; background: #1a1508; }
+  .flow-node-blue { border-color: #58a6ff; }
+  .flow-arrow-down { color: #484f58; text-align: center; font-size: 14px; }
+  .flow-arrow-right { color: #4caf50; font-size: 12px; }
+  .flow-arrow-left { color: #58a6ff; font-size: 12px; }
+
+  .header-row { margin-bottom: 12px; }
+  .header-row .flow-cell { padding: 10px 12px; }
+  .lane-label { text-align: center; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; padding: 8px; border-radius: 6px; }
+  .lane-label-device { background: #1a3a5c; color: #58a6ff; }
+  .lane-label-cloud { background: #3b2e14; color: #f0a830; }
+
+  .phase-divider { grid-column: 1 / -1; padding: 12px; }
+  .phase-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; border-top: 1px solid #30363d; padding-top: 12px; }
+
+  @media (max-width: 800px) {
+    .flow-row, .header-row .flow-row { min-width: 0; grid-template-columns: 1fr; }
+    .flow-cell:not(:last-child) { border-right: none; border-bottom: 1px dashed #21262d; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Firestore ↔ Ditto Sync Flow</h1>
+<p class="subtitle">How data flows between two POS devices through Firestore and Ditto — and where conflicts arise.</p>
+
+<!-- ===== HAPPY PATH ===== -->
+<div class="section">
+  <div class="section-title">
+    Happy Path <span class="badge badge-green">Online</span>
+  </div>
+  <div class="flow-diagram">
+    <div class="flow-row header-row">
+      <div class="flow-cell"><div class="lane-label lane-label-device">Device A</div></div>
+      <div class="flow-cell"><div class="lane-label lane-label-cloud">Firestore (Cloud)</div></div>
+      <div class="flow-cell"><div class="lane-label lane-label-device">Device B</div></div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-green"><strong>1.</strong> User adds product</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-down">↓</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node"><strong>2.</strong> Write to Firestore</div></div>
+      <div class="flow-cell"><div class="flow-arrow-left">← ─ ─ ─ ─ ─ ─ ─</div></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-node flow-node-orange"><strong>3.</strong> Firestore persists doc<br><span style="color:#8b949e;font-size:11px">Source of truth</span></div></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-right">─ ─ ─ ─ ─ ─ ─ →</div></div>
+      <div class="flow-cell"><div class="flow-arrow-down">↓ snapshot event</div></div>
+      <div class="flow-cell"><div class="flow-arrow-left">← ─ ─ ─ ─ ─ ─ ─</div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node"><strong>4a.</strong> Snapshot listener fires<br><span style="color:#8b949e;font-size:11px">SyncBridge → local Ditto</span></div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-node"><strong>4b.</strong> Snapshot listener fires<br><span style="color:#8b949e;font-size:11px">SyncBridge → local Ditto</span></div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-down">↓</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-arrow-down">↓</div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-green"><strong>5a.</strong> Ditto observer → UI updates</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-node flow-node-green"><strong>5b.</strong> Ditto observer → UI updates</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== OFFLINE PATH ===== -->
+<div class="section">
+  <div class="section-title">
+    Offline Path <span class="badge badge-red">Conflict Zone</span>
+  </div>
+  <div class="flow-diagram">
+    <div class="flow-row header-row">
+      <div class="flow-cell"><div class="lane-label lane-label-device">Device A (Offline)</div></div>
+      <div class="flow-cell"><div class="lane-label lane-label-cloud">Firestore (Cloud)</div></div>
+      <div class="flow-cell"><div class="lane-label lane-label-device">Device B (Online)</div></div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-green"><strong>1.</strong> User adds product</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-down">↓</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-red"><strong>2.</strong> Firestore write FAILS<br><span style="color:#ef5350;font-size:11px">No network</span></div></div>
+      <div class="flow-cell"><div style="color:#ef5350;font-size:18px">✕ ─ ─ ─ ─ ─ ✕</div></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-down">↓ fallback</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-blue"><strong>3.</strong> Write to Ditto directly<br><span style="color:#8b949e;font-size:11px">syncSource = "local"</span></div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-arrow-right" style="color:#58a6ff">── P2P sync (BLE/WiFi) ──→</div></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-arrow-left" style="color:#58a6ff">←──────────</div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-node flow-node-blue"><strong>4.</strong> Ditto receives via P2P<br><span style="color:#8b949e;font-size:11px">CRDT merge, UI updates ✓</span></div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"></div>
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-arrow-down">↓ bridge pushes to cloud</div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-arrow-right">─ ─ ─ ─ ─ ─ ─ →</div></div>
+      <div class="flow-cell"><div class="flow-node flow-node-orange"><strong>5.</strong> SyncBridge writes to Firestore<br><span style="color:#8b949e;font-size:11px">syncSource = "ditto"</span></div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"></div>
+      <div class="flow-cell"><div class="flow-node flow-node-orange"><strong>6.</strong> Firestore has the doc now<br><span style="color:#8b949e;font-size:11px">Written by Device B's bridge</span></div></div>
+      <div class="flow-cell"></div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-cell" style="grid-column: 1 / -1; padding: 16px 12px;">
+        <div class="phase-label" style="width: 100%;">⚡ Device A comes back online</div>
+      </div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-red"><strong>7a.</strong> Snapshot listener fires<br><span style="color:#8b949e;font-size:11px">Sees doc (syncSource="ditto")</span></div></div>
+      <div class="flow-cell"><div class="flow-arrow-right">─ ─ snapshot ─ ─→</div></div>
+      <div class="flow-cell"></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-cell"><div class="flow-node flow-node-red"><strong>7b.</strong> Ditto bridge sees local doc<br><span style="color:#8b949e;font-size:11px">Tries to push to Firestore too</span></div></div>
+      <div class="flow-cell"><div style="color:#ef5350;font-size:14px">─ ─ CONFLICT ─ →</div></div>
+      <div class="flow-cell"></div>
+    </div>
+  </div>
+
+  <div class="conflict-box" style="margin-top: 20px;">
+    <h3>⚠ Conflict: Who Wins?</h3>
+    <div class="conflict-item">
+      <span class="conflict-icon">💥</span>
+      <div><strong>Same document ID</strong> — Firestore does last-write-wins. Whichever device's bridge writes last overwrites the other. No field-level merge.</div>
+    </div>
+    <div class="conflict-item">
+      <span class="conflict-icon">👯</span>
+      <div><strong>Different document IDs</strong> — If both devices generated UUIDs offline for the "same" logical action, you get duplicate documents.</div>
+    </div>
+    <div class="conflict-item">
+      <span class="conflict-icon">🔢</span>
+      <div><strong>Inventory counters</strong> — Ditto uses CRDT counters (merge-safe). Firestore uses plain integers. A decrement on Device A and Device B both read qty=50, both write qty=49. One decrement is lost.</div>
+    </div>
+    <div class="conflict-item">
+      <span class="conflict-icon">🔄</span>
+      <div><strong>Sync loops</strong> — Without careful change guards, the bridge can ping-pong updates between Firestore and Ditto indefinitely.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESOLUTIONS ===== -->
+<div class="section">
+  <div class="section-title">Possible Resolutions</div>
+  <div class="resolution-grid">
+    <div class="resolution-card">
+      <h4>Option A: Ditto as Source of Truth</h4>
+      <p>Firestore is a cloud mirror. Ditto CRDTs handle all conflict resolution.</p>
+      <ul>
+        <li>All reads from Ditto (CRDT merge is automatic)</li>
+        <li>Bridge pushes Ditto → Firestore with SET MERGE</li>
+        <li>No conflicts — Ditto resolves them</li>
+        <li>Firestore is eventually consistent</li>
+        <li>Firestore consumers see stale data during partitions</li>
+      </ul>
+    </div>
+    <div class="resolution-card">
+      <h4>Option B: Firestore as Source of Truth</h4>
+      <p>Ditto is transport-only. Offline writes queue and replay to Firestore on reconnect.</p>
+      <ul>
+        <li>Offline writes marked "pending" in Ditto</li>
+        <li>On reconnect: replay to Firestore via transactions</li>
+        <li>Server-side conflict resolution (you build it)</li>
+        <li>Complex — essentially building your own sync protocol</li>
+        <li>Ditto P2P becomes a message bus, not a store</li>
+      </ul>
+    </div>
+    <div class="resolution-card recommended">
+      <h4>Option C: Split Authority <span class="rec-badge">Recommended</span></h4>
+      <p>Each store owns different collections. No conflicts by design.</p>
+      <ul>
+        <li><strong>Firestore owns:</strong> products, menu, config (read-heavy, admin-managed)</li>
+        <li><strong>Ditto owns:</strong> orders, inventory, cart (write-heavy, multi-device)</li>
+        <li>Bridge is one-directional per collection</li>
+        <li>No conflict resolution needed</li>
+        <li>Each store plays to its strengths</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
