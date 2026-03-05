@@ -2,6 +2,18 @@
 
 Proof of concept validating a bidirectional sync bridge between **Firebase Firestore** (cloud) and **Ditto** (local-first, peer-to-peer). The app is a point-of-sale terminal that writes to Firestore as its primary store, with automatic fallback to Ditto when Firestore is unreachable — enabling offline operation and P2P sync between devices.
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/catalog_tab.png" width="270" alt="Product catalog with dark POS theme" />
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/status_tab.png" width="270" alt="Status tab with Firestore toggle, peers, and sync log" />
+</p>
+
+<p align="center">
+  <em>Left: Product catalog &nbsp;|&nbsp; Right: Status & debug panel with Firestore toggle, Ditto peers, and sync log</em>
+</p>
+
 ## What This Validates
 
 - **Firestore-first writes** with Ditto fallback when the network is unavailable
@@ -13,23 +25,40 @@ Proof of concept validating a bidirectional sync bridge between **Firebase Fires
 ## Architecture
 
 ```
-┌──────────────┐       ┌──────────────────┐       ┌──────────────┐
-│  Firestore   │◄─────►│  SyncBridgeManager│◄─────►│    Ditto     │
-│  (cloud)     │       │  (change guards)  │       │  (local/P2P) │
-└──────────────┘       └──────────────────┘       └──────────────┘
-                              ▲
-                              │
-                       ┌──────┴───────┐
-                       │  ViewModels  │
-                       │  write to FS │
-                       │  read from   │
-                       │  Ditto store │
-                       └──────────────┘
+                        ┌─────────────────────────────────────────┐
+                        │           SyncBridgeManager             │
+                        │                                         │
+                        │   syncSource change guards prevent      │
+                        │   infinite loops between stores         │
+                        └──────────┬──────────────┬───────────────┘
+                                   │              │
+                    Snapshot        │              │  Store
+                    Listeners       │              │  Observers
+                                   ▼              ▼
+               ┌───────────────────────┐   ┌───────────────────────┐
+               │   Firebase Firestore  │   │        Ditto          │
+               │     ☁️  Cloud Store    │   │   📱 Local + P2P     │
+               │                       │   │                       │
+               │  • Primary writes     │   │  • Fallback writes    │
+               │  • Cloud persistence  │   │  • Offline reads      │
+               │  • Cross-platform     │   │  • Mesh sync (BLE,    │
+               │    access             │   │    WiFi, WebSocket)   │
+               └───────────┬───────────┘   └───────────┬───────────┘
+                           │                           │
+                           │    ┌─────────────────┐    │
+                           └───►│   ViewModels    │◄───┘
+                                │                 │
+                                │  Write → FS     │
+                                │  Fail? → Ditto  │
+                                │  Read  ← Ditto  │
+                                └─────────────────┘
 ```
 
-- **Writes** go to Firestore first. If the write fails (offline, network disabled), the app falls back to writing directly to Ditto.
-- **Reads** come from Ditto store observers, which always have the latest data regardless of connectivity.
-- **SyncBridgeManager** runs Firestore snapshot listeners and Ditto store observers to propagate changes in both directions, using `syncSource` tags to prevent loops.
+**Write path:** ViewModels write to Firestore first. If the write fails (offline, network toggled off), the app falls back to writing directly into Ditto. The sync bridge reconciles when connectivity returns.
+
+**Read path:** Ditto store observers power all UI — data is always available regardless of cloud connectivity.
+
+**Sync loop prevention:** Every document carries a `syncSource` field (`"local"`, `"firestore"`, or `"ditto"`). The bridge skips documents that originated from the other side, breaking potential infinite loops.
 
 ## Key Features
 
