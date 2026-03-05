@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "000000000000",
-    "project_id": "placeholder-project-id",
-    "storage_bucket": "placeholder-project-id.appspot.com"
+    "project_number": "826099855656",
+    "project_id": "ls-fs-ditto",
+    "storage_bucket": "ls-fs-ditto.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "mobilesdk_app_id": "1:826099855656:android:6a7e3395f2326f9b51601d",
         "android_client_info": {
-          "package_name": "live.ditto.pubsec.pos"
+          "package_name": "live.ditto.pos.fsditto"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "placeholder-api-key"
+          "current_key": "AIzaSyBudIv2adQNbOyEvX5BKm6n5qWkoQU0jIA"
         }
       ],
       "services": {

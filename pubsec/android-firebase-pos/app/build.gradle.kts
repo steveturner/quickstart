@@ -48,11 +48,11 @@ androidComponents {
 }
 
 android {
-    namespace = "live.ditto.pubsec.pos"
+    namespace = "live.ditto.pos.fsditto"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "live.ditto.pubsec.pos"
+        applicationId = "live.ditto.pos.fsditto"
         minSdk = 23
         targetSdk = 35
         versionCode = 1
